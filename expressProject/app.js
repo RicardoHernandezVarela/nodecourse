@@ -11,6 +11,10 @@ app.get('/contact', (req, res) => {
     res.sendFile('./views/contact.html', {root: __dirname});
 });
 
+app.get('/add-item', (req, res) => {
+    res.sendFile('./views/add-item.html', {root: __dirname});
+});
+
 app.use((req, res) => {
     res.sendFile('./views/error.html', {root: __dirname});
 });
