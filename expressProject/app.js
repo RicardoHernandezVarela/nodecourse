@@ -1,7 +1,8 @@
 const express = require('express');
 const app = express();
 app.set('view engine', 'ejs');
-const mongo = 'mongodb+srv://rickdev:abril1997@cluster0.us2mq.mongodb.net/item-database?retryWrites=true&w=majority';
+
+const mongodb = require('./dbkey'); 
 
 app.listen(3000);
 
