@@ -13,7 +13,7 @@
               <%items.map((item) => {%>
                 <li class="collection-item">
                   <div>
-                    <%= item.name%>  $<%= item.price%>
+                    <a href="/items/<%= item.id%>"><%= item.name%>  $<%= item.price%></a>
                     <a href="#!" class="secondary-content">
                       <i class="material-icons">delete</i>
                     </a>
