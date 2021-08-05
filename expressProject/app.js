@@ -9,6 +9,9 @@ app.set('view engine', 'ejs');
 app.use(express.urlencoded({extended: true}))
 app.use(express.static('static')); //static files folder
 
+// Mongoose conf
+mongoose.set('useFindAndModify', false);
+
 // mongodb connection
 mongoose.connect(mongodb, {useNewUrlParser: true, useUnifiedTopology: true})
     .then(() => {
@@ -50,11 +53,11 @@ app.get('/', (req, res) => {
     res.redirect('/all-items');
 });
 
-// get all items (test)
+// get all items
 app.get('/all-items', (req, res) => {
     Item.find()
         .then((result) => {
-            res.render('index', {items: result});
+            res.render('index', {items: result, libs: ['index']});
         })
         .catch((err) => {
             console.log(err);
@@ -67,7 +70,7 @@ app.post('/save-item', (req, res) => {
 
     item.save()
     .then((result) => {
-        console.log('result: ', result);
+        // console.log('result: ', result);
         res.redirect('/all-items');
     })
     .catch((err) => console.log(err));
@@ -93,6 +96,19 @@ app.delete('/items/:id', (req, res) => {
     Item.findByIdAndDelete(req.params.id)
     .then((result) => {
         res.json({redirect: '/all-items'});
+    })
+    .catch((err) => {
+        console.log(err);
+    });
+});
+
+// edit item by id
+app.put('/items/:id', (req, res) => {
+    //console.log('body: ', req.body);
+
+    Item.findByIdAndUpdate(req.params.id, req.body)
+    .then((result) => {
+        res.json({msg: 'Updated successfully!'});
     })
     .catch((err) => {
         console.log(err);

@@ -7,18 +7,18 @@
 
     <%- include('./partials/navbar.ejs')%>
 
-    <div class="container">
+    <div class="container" id="itemOptions">
         <ul class="collection with-header">
             <% if (items.length > 0) {%>
               <%items.map((item) => {%>
                 <li class="collection-item">
                   <div>
-                    <a href="/items/<%= item.id%>"><%= item.name%>  $<%= item.price%></a>
-                    <a href="#!" class="secondary-content">
-                      <i class="material-icons">delete</i>
+                    <a href="#" data-id="<%= item._id%>"><%= item.name%>  $<%= item.price%></a>
+                    <a href="" class="secondary-content">
+                      <i class="material-icons" data-id="<%= item._id%>" data-name="<%= item.name%>" data-price="<%= item.price%>">delete</i>
                     </a>
-                    <a href="#!" class="secondary-content">
-                      <i class="material-icons">edit</i>
+                    <a href="#edit-item" class="secondary-content modal-trigger">
+                      <i class="material-icons" data-id="<%= item._id%>" data-name="<%= item.name%>" data-price="<%= item.price%>">edit</i>
                     </a>
                   </div>
                 </li>
@@ -29,7 +29,20 @@
         </ul>
     </div>
 
+    <!-- EDIT FORM / MODAL -->
+    <div id="edit-item" class="modal">
+      <div class="modal-content">
+        <h4>Modal Header</h4>
+        <form id="editForm" action="">
+          <input type="text" name="name" placeholder="item name">
+          <input type="number" name="price" placeholder="item price">
+          <button class="btn">UPDATE</button>
+        </form>
+      </div>
+    </div>
+
     <!-- Compiled and minified JavaScript -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <script src='/js/<%= libs[0] %>.js' type='text/javascript'></script>
   </body>
 </html>
